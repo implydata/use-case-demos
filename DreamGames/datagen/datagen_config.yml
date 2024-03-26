@@ -1,0 +1,11 @@
+# Try to include optional files. Any settings in these files override the main settings.
+IncludeOptional:
+    # Secure Kafka settings
+    - datagen_secret.yml
+General:
+    minSleep: 0.05
+    maxSleep: 0.2
+    eventTopic: "dg-events"
+Kafka:
+    bootstrap.servers: "localhost:9092"
+
