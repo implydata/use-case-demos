@@ -28,8 +28,8 @@ def emit(producer, topic, key, emitRecord):
             msgCount = 0
         producer.poll(0)
 
-def emitClick(p, t, emitRecord):
-    emit(p, t, emitRecord["event_key"], vs, emitRecord)
+def emitEvent(p, t, emitRecord):
+    emit(p, t, emitRecord["event_key"], emitRecord)
 
 
 # Read configuration
