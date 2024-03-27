@@ -10,6 +10,7 @@ import signal
 from faker import Faker
 from confluent_kafka import Producer
 from mergedeep import merge
+import sqlite3
 
 fake = Faker()
 

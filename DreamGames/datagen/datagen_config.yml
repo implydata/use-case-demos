@@ -8,4 +8,5 @@ General:
     eventTopic: "dg-events"
 Kafka:
     bootstrap.servers: "localhost:9092"
-
+State:
+    db: "datagen_state.db"
