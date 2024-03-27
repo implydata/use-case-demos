@@ -1,12 +1,9 @@
 import yaml
 import json
 import random
-import math
-from scipy import interpolate
 import time
 import argparse, sys, logging
 import socket
-import signal
 from faker import Faker
 from confluent_kafka import Producer
 from mergedeep import merge
