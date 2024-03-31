@@ -6,6 +6,10 @@ General:
     minSleep: 0.05
     maxSleep: 0.2
     eventTopic: "dg-events"
+    eventDetailTopic: "dg-event-detail"
+    userDetailTopic: "dg-user-detail"
+    gameDetailTopic: "dg-game-detail"
+    advertiserDetailTopic: "dg-advertiser-detail"
 Kafka:
     bootstrap.servers: "localhost:9092"
 State:
