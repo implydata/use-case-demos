@@ -9,9 +9,14 @@ from confluent_kafka import Producer
 from mergedeep import merge
 import sqlite3
 
+# Globals
+
 fake = Faker()
+GAMEID = ('G1', 'G2', 'G3')
 
 msgCount = 0
+
+# Helper functions
 
 def emit(producer, topic, key, emitRecord):
     global msgCount
@@ -27,7 +32,7 @@ def emit(producer, topic, key, emitRecord):
         producer.poll(0)
 
 def emitEvent(p, t, emitRecord):
-    emit(p, t, emitRecord["event_key"], emitRecord)
+    emit(p, t, emitRecord["sessionId"], emitRecord)
 
 
 # Read configuration
@@ -97,12 +102,23 @@ def main():
 
     while True:
 
-        # TODO generate record
-
+        tNow = int(time.time())
+        
         ev = {
-            'timestamp' : int(time.time()),
-            'event_key' : '1111',
-            'eventdata' : 'dummy'
+            'eventId' : fake.random_int(min=1, max=10),
+            'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
+            'timestamp' : tNow,
+            'gameId' : fake.random_element(elements=GAMEID),
+            'userId' : fake.word(),
+            'playerId' : fake.word(),
+            'sessionId' : fake.numerify('######'),
+            'sessionStatus' : fake.random_element(elements=('start', 'in-progress', 'complete', 'fail')),
+            'score' : fake.random_int(min=0, max=100000),
+            'gameLevel' : str(fake.random_int(min=1, max=100)),
+            'deviceId' : fake.user_agent(),
+            'IPaddress' : fake.ipv4(),
+            'adId' : fake.word(),
+            'adResponse' : fake.random_element(elements=('', 'view', 'click'))
         }
         emitEvent(producer, eventTopic, ev)
 
