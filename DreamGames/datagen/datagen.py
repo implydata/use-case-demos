@@ -127,8 +127,6 @@ def main():
     if args.dry_run:
         producer = None
     else:
-        logging.debug(f'eventTopic: {eventTopic}')
-
         kafkaconf = config['Kafka']
         kafkaconf['client.id'] = socket.gethostname()
         logging.debug(f'Kafka client configuration: {kafkaconf}')
@@ -140,6 +138,7 @@ def main():
         userDetailTopic = config['General']['userDetailTopic']
         gameDetailTopic = config['General']['gameDetailTopic']
         advertiserDetailTopic = config['General']['advertiserDetailTopic']
+        logging.debug(f'eventTopic: {eventTopic}')
     except KeyError:
         eventTopic = None    
         eventDetailTopic = None    
