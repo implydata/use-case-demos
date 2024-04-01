@@ -66,6 +66,18 @@ def emitUserDetail(p, t, k):
     }
     emit(p, t, k, ud)
 
+def emitGameDetail(p, t, k):
+    gd = {
+        'gameId': k
+    }
+    emit(p, t, k, gd)
+
+def emitAdvertiserDetail(p, t, k):
+    ad = {
+        'advertiserId': k
+    }
+    emit(p, t, k, ad)
+
 # Read configuration
         
 def readConfig(ifn):
@@ -149,11 +161,14 @@ def main():
         eventId = str(fake.random_int(min=0, max=9))
         userId = fake.numerify('######')
         playerId = userId + '-' + fake.numerify('###') # convention: playerId is userId-suffix
+        gameId = fake.random_element(elements=GAMEID)
+        adId = fake.word()
+
         ev = {
             'eventId' : eventId,
             'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
             'timestamp' : tNow,
-            'gameId' : fake.random_element(elements=GAMEID),
+            'gameId' : gameId,
             'userId' : userId,
             'playerId' : playerId,
             'sessionId' : fake.numerify('######'),
@@ -162,12 +177,14 @@ def main():
             'gameLevel' : str(fake.random_int(min=1, max=100)),
             'deviceId' : fake.user_agent(),
             'IPaddress' : fake.ipv4(),
-            'adId' : fake.word(),
+            'adId' : adId,
             'adResponse' : fake.random_element(elements=('', 'view', 'click'))
         }
         emitEvent(producer, eventTopic, ev)
         emitEventDetail(producer, eventDetailTopic, eventId)
         emitUserDetail(producer, userDetailTopic, playerId)
+        emitGameDetail(producer, gameDetailTopic, gameId)
+        emitAdvertiserDetail(producer, advertiserDetailTopic, adId)
 
         waitSecs = random.uniform(minSleep, maxSleep)
         logging.debug(f'wait time: {waitSecs}')
