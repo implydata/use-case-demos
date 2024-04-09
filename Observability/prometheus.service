@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus Server
+After=network.target
+
+[Service]
+ExecStart=/home/ec2-user/prometheus/prometheus --config.file=/home/ec2-user/prometheus/prometheus.yml
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
