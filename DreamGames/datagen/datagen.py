@@ -134,17 +134,9 @@ def main():
 
     try:
         eventTopic = config['General']['eventTopic']
-        eventDetailTopic = config['General']['eventDetailTopic']
-        userDetailTopic = config['General']['userDetailTopic']
-        gameDetailTopic = config['General']['gameDetailTopic']
-        advertiserDetailTopic = config['General']['advertiserDetailTopic']
         logging.debug(f'eventTopic: {eventTopic}')
     except KeyError:
         eventTopic = None    
-        eventDetailTopic = None    
-        userDetailTopic = None    
-        gameDetailTopic = None    
-        advertiserDetailTopic = None    
 
     minSleep = config['General']['minSleep']
     if minSleep is None:
@@ -165,6 +157,7 @@ def main():
 
         ev = {
             'eventId' : eventId,
+            'eventType': EVENTTYPE[int(eventId)],
             'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
             'timestamp' : tNow,
             'gameId' : gameId,
@@ -177,13 +170,24 @@ def main():
             'deviceId' : fake.user_agent(),
             'IPaddress' : fake.ipv4(),
             'adId' : adId,
-            'adResponse' : fake.random_element(elements=('', 'view', 'click'))
+            'adResponse' : fake.random_element(elements=('', 'view', 'click')),
+            'userName': fake.user_name(),
+            'payingCustomer': fake.random_element(elements=('Y', 'N')),
+            'deviceDetail': {
+                'deviceId': fake.uuid4(),
+                'deviceType': fake.random_element(elements=('mobile', 'desktop')),
+                'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
+                'deviceManufacturer': fake.random_element(elements=('Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Dell', 'HP')),
+                'gameVersion': fake.numerify('%.#')
+            },
+            'playerDemographics': {
+                'ageRange': fake.random_element(elements=('18-25', '26-35', '36-50', '51-60', '61+')),
+                'pronouns': fake.random_element(elements=('he/him', 'she/her', 'they/them')),
+                'genreOfInterest': fake.random_element(elements=('action', 'strategy', 'casual'))
+            },
+            'playerAdPreferences': fake.random_sample(ADPREFS)
         }
         emitEvent(producer, eventTopic, ev)
-        emitEventDetail(producer, eventDetailTopic, eventId)
-        emitUserDetail(producer, userDetailTopic, playerId)
-        emitGameDetail(producer, gameDetailTopic, gameId)
-        emitAdvertiserDetail(producer, advertiserDetailTopic, adId)
 
         waitSecs = random.uniform(minSleep, maxSleep)
         logging.debug(f'wait time: {waitSecs}')
