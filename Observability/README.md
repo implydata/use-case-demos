@@ -94,7 +94,8 @@ sudo systemctl enable prometheus
 ![image-20240307-170308](https://github.com/implydata/use-case-demos/assets/91908414/678fecf8-9eb4-495f-a3f6-72bf78e4d6a1)
 
 
-## Part 2. Sending metrics from Prometheus to Kafka and analyse them in Imply
+
+## Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply
 
 ### Install Prometheus-Kafka Adapter
 
