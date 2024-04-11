@@ -3,8 +3,8 @@ IncludeOptional:
     # Secure Kafka settings
     - datagen_secret.yml
 General:
-    minSleep: 0.05
-    maxSleep: 0.2
+    minSleep: 0.005
+    maxSleep: 0.02
     eventTopic: "dg-events"
 Kafka:
     bootstrap.servers: "localhost:9092"
