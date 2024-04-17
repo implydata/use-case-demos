@@ -184,7 +184,7 @@ def main():
             'userId' : userId,
             'playerId' : playerId,
             'sessionId' : fake.numerify('######'),
-            'sessionStatus' : fake.random_element(elements=SESSIONSTATUS[anomalyOn])),
+            'sessionStatus' : fake.random_element(elements=SESSIONSTATUS[anomalyOn]),
             'score' : fake.random_int(min=0, max=100000),
             'gameLevel' : str(fake.random_int(min=1, max=100)),
             'deviceId' : fake.user_agent(),
