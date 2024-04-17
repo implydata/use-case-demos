@@ -6,6 +6,7 @@ import argparse, sys, logging
 import socket
 from faker import Faker
 from confluent_kafka import Producer
+from collections import OrderedDict
 from mergedeep import merge
 import sqlite3
 
@@ -15,6 +16,22 @@ fake = Faker()
 GAMEID = ('G1', 'G2', 'G3')
 EVENTTYPE = ('Register', 'Sign In', 'Purchase', 'AdResponse', 'Payment', 'GameProgress', 'Game/device error', 'start Game', 'end Game', 'quit Game')
 ADPREFS = ('sports', 'kids', 'clothes', 'dating', 'crypto')
+
+# the index into SESSIONSTATUS is the anomaly mode
+SESSIONSTATUS = {
+    False: OrderedDict([
+      ('start', 0.1),
+      ('in-progress', 0.8),
+      ('complete', 0.07),
+      ('fail', 0.03)
+    ]),
+    True: OrderedDict([
+      ('start', 0.1),
+      ('in-progress', 0.6),
+      ('complete', 0.07),
+      ('fail', 0.23)
+    ])
+}
 
 msgCount = 0
 
@@ -149,11 +166,14 @@ def main():
 
         tNow = int(time.time())
         
+        hourOfDayGM = time.gmtime(tNow)[3]
+        anomalyOn = hourOfDayGM >= 10 and hourOfDayGM < 12 # 2 hours in the morning
+        
         eventId = str(fake.random_int(min=0, max=9))
         userId = fake.numerify('######')
         playerId = userId + '-' + fake.numerify('###') # convention: playerId is userId-suffix
         gameId = fake.random_element(elements=GAMEID)
-        adId = fake.word()
+        adId = fake.numerify('A-####')
 
         ev = {
             'eventId' : eventId,
@@ -164,7 +184,7 @@ def main():
             'userId' : userId,
             'playerId' : playerId,
             'sessionId' : fake.numerify('######'),
-            'sessionStatus' : fake.random_element(elements=('start', 'in-progress', 'complete', 'fail')),
+            'sessionStatus' : fake.random_element(elements=SESSIONSTATUS[anomalyOn])),
             'score' : fake.random_int(min=0, max=100000),
             'gameLevel' : str(fake.random_int(min=1, max=100)),
             'deviceId' : fake.user_agent(),
@@ -174,7 +194,6 @@ def main():
             'userName': fake.user_name(),
             'payingCustomer': fake.random_element(elements=('Y', 'N')),
             'deviceDetail': {
-                'deviceId': fake.uuid4(),
                 'deviceType': fake.random_element(elements=('mobile', 'desktop')),
                 'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
                 'deviceManufacturer': fake.random_element(elements=('Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Dell', 'HP')),
