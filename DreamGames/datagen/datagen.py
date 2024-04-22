@@ -32,6 +32,10 @@ SESSIONSTATUS = {
       ('fail', 0.23)
     ])
 }
+REVENUEPARAM = {
+    False: { 'mu': 20.0, 'sigma': 4.0 },
+    True:  { 'mu': 10.0, 'sigma': 2.5 }
+}
 
 msgCount = 0
 
@@ -193,6 +197,7 @@ def main():
             'adResponse' : fake.random_element(elements=('', 'view', 'click')),
             'userName': fake.user_name(),
             'payingCustomer': fake.random_element(elements=('Y', 'N')),
+            'eventRevenue': round(random.gauss(REVENUEPARAM[anomalyOn]['mu'], REVENUEPARAM[anomalyOn]['sigma']), 2),
             'deviceDetail': {
                 'deviceType': fake.random_element(elements=('mobile', 'desktop')),
                 'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
