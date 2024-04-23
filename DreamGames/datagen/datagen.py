@@ -180,36 +180,21 @@ def main():
         adId = fake.numerify('A-####')
 
         ev = {
-            'eventId' : eventId,
             'eventType': EVENTTYPE[int(eventId)],
             'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
-            'timestamp' : tNow,
-            'gameId' : gameId,
+            'gameInfo' : gameId + ' ' + fake.numerify('%.#'),
             'userId' : userId,
-            'playerId' : playerId,
             'sessionId' : fake.numerify('######'),
             'sessionStatus' : fake.random_element(elements=SESSIONSTATUS[anomalyOn]),
             'score' : fake.random_int(min=0, max=100000),
             'gameLevel' : str(fake.random_int(min=1, max=100)),
-            'deviceId' : fake.user_agent(),
+            'deviceType': fake.random_element(elements=('mobile', 'desktop')),
+            'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
             'IPaddress' : fake.ipv4(),
-            'adId' : adId,
-            'adResponse' : fake.random_element(elements=('', 'view', 'click')),
-            'userName': fake.user_name(),
-            'payingCustomer': fake.random_element(elements=('Y', 'N')),
+            'adName' : adId,
             'eventRevenue': round(random.gauss(REVENUEPARAM[anomalyOn]['mu'], REVENUEPARAM[anomalyOn]['sigma']), 2),
-            'deviceDetail': {
-                'deviceType': fake.random_element(elements=('mobile', 'desktop')),
-                'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
-                'deviceManufacturer': fake.random_element(elements=('Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Dell', 'HP')),
-                'gameVersion': fake.numerify('%.#')
-            },
-            'playerDemographics': {
-                'ageRange': fake.random_element(elements=('18-25', '26-35', '36-50', '51-60', '61+')),
-                'pronouns': fake.random_element(elements=('he/him', 'she/her', 'they/them')),
-                'genreOfInterest': fake.random_element(elements=('action', 'strategy', 'casual'))
-            },
-            'playerAdPreferences': fake.random_sample(ADPREFS)
+            'playerAgeDemographics': fake.random_element(elements=('18-25', '26-35', '36-50', '51-60', '61+')),
+            'adResponse' : fake.random_element(elements=('', 'view', 'click')),
         }
         emitEvent(producer, eventTopic, ev)
 
