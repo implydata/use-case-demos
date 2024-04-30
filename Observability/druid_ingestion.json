@@ -1,0 +1,72 @@
+{
+  "source": {
+    "connectionName": "PromMetrics",
+    "formatSettings": {
+      "flattenSpec": {},
+      "format": "nd-json"
+    },
+    "inputSchema": [
+      {
+        "dataType": "string",
+        "name": "timestamp"
+      },
+      {
+        "dataType": "json",
+        "name": "labels"
+      },
+      {
+        "dataType": "string",
+        "name": "name"
+      },
+      {
+        "dataType": "double",
+        "name": "value"
+      }
+    ],
+    "type": "connection"
+  },
+  "target": {
+    "tableName": "PromImplyMetrics",
+    "type": "table",
+    "intervals": []
+  },
+  "createTableIfNotExists": false,
+  "dimensionExclusions": [
+    "timestamp",
+    "name",
+    "value",
+    "labels"
+  ],
+  "filterExpression": null,
+  "includeAllDimensions": null,
+  "lateMessageRejectionPeriod": "P30D",
+  "earlyMessageRejectionPeriod": "P2000D",
+  "mappings": [
+    {
+      "columnName": "__time",
+      "expression": "TIME_PARSE(\"timestamp\")",
+      "isAggregation": null
+    },
+    {
+      "columnName": "lables",
+      "expression": "\"labels\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "metricName",
+      "expression": "\"name\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "metricValue",
+      "expression": "\"value\"",
+      "isAggregation": null
+    }
+  ],
+  "maxParseExceptions": 2147483647,
+  "readFromPoint": "earliest",
+  "useSchemaDiscovery": true,
+  "replaceRunning": false,
+  "type": "streaming",
+  "desiredExecutionStatus": "running"
+}
