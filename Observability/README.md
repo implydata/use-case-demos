@@ -1,14 +1,15 @@
 # Observabiility using Imply, Prometheus and Kafka
 
+
 To demo the Observability use case, the idea began with having some metrics in Prometheus, send them to Kafka and monitor them in Imply. What better way than to use metrics from my own Imply Hybrid cluster for this demo :) 
 
 So this README provides guidance on 
-1. Part 1: Emit Druid metrics from Imply cluster to Prometheus and 
-2. Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply
 
-So refer to part 1, if you want to emit Druid metrics from Imply cluster to Prometheus.
+[Part 1: Emit Druid metrics from Imply cluster to Prometheus](#part-1-emit-druid-metrics-from-imply-cluster-to-prometheus)
 
-And refer to part 2, if you have some metrics already available in Prometheus and would like to send them to Kafka so they can be analysed in Imply/Druid.
+[Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply](#part-2-sending-metrics-from-prometheus-to-kafka-and-analyse-them-in-imply)
+
+Please refer to part 1 if you want to emit Druid metrics from Imply cluster to Prometheus, and please refer to part 2 if you have some metrics already available in Prometheus and would like to send them to Kafka so they can be analysed in Imply/Druid.
 
 ## Part 1: Emit Druid metrics from Imply cluster to Prometheus
 
