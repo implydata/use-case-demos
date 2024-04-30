@@ -4,13 +4,13 @@ This repository contains various demos including all the configuration files usi
 
 Currently, we have created solutions for the following use cases:
 
-* IoT
+* [IoT](https://github.com/implydata/imply-iot-workshop)
 
   
-* Observability
+* [Observability](https://github.com/implydata/use-case-demos/tree/main/Observability)
 
   
-* Game Analytics
+* [Game Analytics](https://github.com/implydata/use-case-demos/tree/main/DreamGames/datagen)
 
   
 * Product Analytics
