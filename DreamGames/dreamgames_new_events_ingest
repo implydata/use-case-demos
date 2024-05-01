@@ -1,0 +1,185 @@
+curl --location --request POST "https://imply.api.imply.io/v1/projects/Polaris-project-1eff-4eb0-ba32-65771bf0f527/jobs" \
+--user pck_polaris_project_api_key: \
+--header "Content-Type: application/json" \
+--data-raw '{
+  "type": "streaming",
+  "target": {
+    "type": "table",
+    "tableName": "dreamgames_new_events"
+  },
+  "desiredExecutionStatus": "running",
+  "source": {
+    "type": "connection",
+    "connectionName": "dreamgames_new_events",
+    "formatSettings": {
+      "format": "nd-json"
+    },
+    "inputSchema": [
+      {
+        "dataType": "long",
+        "name": "eventTimestamp"
+      },
+      {
+        "dataType": "string",
+        "name": "eventType"
+      },
+      {
+        "dataType": "string",
+        "name": "gameInfo"
+      },
+      {
+        "dataType": "long",
+        "name": "userId"
+      },
+      {
+        "dataType": "long",
+        "name": "sessionId"
+      },
+      {
+        "dataType": "string",
+        "name": "sessionStatus"
+      },
+      {
+        "dataType": "long",
+        "name": "score"
+      },
+      {
+        "dataType": "long",
+        "name": "gameLevel"
+      },
+      {
+        "dataType": "string",
+        "name": "deviceType"
+      },
+      {
+        "dataType": "string",
+        "name": "deviceOS"
+      },
+      {
+        "dataType": "string",
+        "name": "IPaddress"
+      },
+      {
+        "dataType": "string",
+        "name": "adName"
+      },
+      {
+        "dataType": "double",
+        "name": "eventRevenue"
+      },
+      {
+        "dataType": "string",
+        "name": "playerAgeDemographics"
+      },
+      {
+        "dataType": "string",
+        "name": "adResponse"
+      },
+      {
+        "name": "__count",
+        "dataType": "long"
+      }
+    ]
+  },
+  "mappings": [
+    {
+      "columnName": "__time",
+      "expression": "TIME_FLOOR(MILLIS_TO_TIMESTAMP(\"eventTimestamp\" * 1000), '\''PT1M'\'')",
+      "isAggregation": null
+    },
+    {
+      "columnName": "eventType",
+      "expression": "\"eventType\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "gameInfo",
+      "expression": "\"gameInfo\"",
+      "isAggregation": null
+    },
+    {   
+      "columnName": "userId",
+      "expression": "\"userId\"",
+      "isAggregation": null
+    },  
+    {
+      "columnName": "sessionId",
+      "expression": "\"sessionId\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "sessionStatus",
+      "expression": "\"sessionStatus\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "score",
+      "expression": "\"score\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "gameLevel",
+      "expression": "\"gameLevel\"",
+      "isAggregation": null
+    },
+    {   
+      "columnName": "deviceType",
+      "expression": "\"deviceType\"",
+      "isAggregation": null
+    },  
+    {   
+      "columnName": "deviceOS",
+      "expression": "\"deviceOS\"",
+      "isAggregation": null
+    },  
+    {
+      "columnName": "IPaddress",
+      "expression": "\"IPaddress\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "adName",
+      "expression": "\"adName\"",
+      "isAggregation": null
+    },
+    {   
+      "columnName": "eventRevenue",
+      "expression": "\"eventRevenue\"",
+      "isAggregation": null
+    },  
+    {   
+      "columnName": "playerAgeDemographics",
+      "expression": "\"playerAgeDemographics\"",
+      "isAggregation": null
+    },  
+    {
+      "columnName": "adResponse",
+      "expression": "\"adResponse\"",
+      "isAggregation": null
+    },
+    {
+      "columnName": "__count",
+      "expression": "COUNT(*)",
+      "isAggregation": true
+    },
+    {
+      "expression": "DS_HLL(\"eventType\")",
+      "columnName": "approx_eventType",
+      "isAggregation": true
+    },
+    {
+      "expression": "DS_HLL(\"userId\")",
+      "columnName": "approx_userId",
+      "isAggregation": true
+    },
+    {
+      "expression": "DS_HLL(\"deviceOS\")",
+      "columnName": "approx_deviceOS",
+      "isAggregation": true
+    }
+  ],
+  "readFromPoint": "earliest",
+  "useSchemaDiscovery": true,
+  "replaceRunning": false
+}'
+
