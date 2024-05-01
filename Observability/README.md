@@ -9,9 +9,7 @@ So this README provides guidance on
 
 [Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply](#part-2-sending-metrics-from-prometheus-to-kafka-and-analyse-them-in-imply)
 
-Please refer to part 1 if you want to emit Druid metrics from Imply cluster to Prometheus, and please refer to part 2 if you have some metrics already available in Prometheus and would like to send them to Kafka so they can be analysed in Imply/Druid.
-
-## Part 1: Emit Druid metrics from Imply cluster to Prometheus
+Please refer to part 1a if you want to emit Druid metrics from Imply cluster to Prometheus or part 1b if you want to emit K8s metrics to Prometheu. And refer to part 2 if you have some metrics already available in Prometheus and would like to send them to Kafka so they can be analysed in Imply/Druid.
 
 Prometheus is an open-source monitoring and alerting tool designed for cloud-native environments. It collects and stores metrics as time-series data, offering robust monitoring capabilities.
 
@@ -22,6 +20,9 @@ Prometheus operates on a pull model, where it regularly scrapes metrics from con
 - **Data Collection**: Prometheus collects data in the form of time series.
 - **Scraping**: The Prometheus server queries data sources, known as exporters, at defined intervals.
 - **Storage**: Metrics are stored locally on disk, enabling fast data storage and querying.
+
+## Part 1a: Emit Druid metrics from Imply cluster to Prometheus
+
 
 ## Prometheus-emitter Extension
 
@@ -95,6 +96,36 @@ sudo systemctl enable prometheus
 ![image-20240307-170308](https://github.com/implydata/use-case-demos/assets/91908414/678fecf8-9eb4-495f-a3f6-72bf78e4d6a1)
 
 
+## Part 1b: Emit K8s metrics from EKS cluster to Prometheus
+
+### Install Prometheus on the EKS cluster using Helm
+
+1. **Create namespace for Prometheus**:
+```
+kubectl create namespace prometheus
+```
+
+2. **Add the prometheus-community chart repository**:
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+```
+
+3. **Save default values**
+```
+helm show values prometheus-community/prometheus > prometheus.yaml
+```
+
+4. **Deploy Prometheus**:
+```
+helm upgrade -i prometheus prometheus-community/prometheus \
+    --namespace prometheus \
+    --set alertmanager.persistentVolume.storageClass="gp2" \
+    --set server.persistentVolume.storageClass="gp2" \
+    --set server.service.type=LoadBalancer
+    --values prometheus.yaml
+```
+
+
 
 ## Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply
 
@@ -149,17 +180,36 @@ docker-compose up -d
 
 ### Update prometheus.yml
 
-In order for Prometheus to send metrics to the Prometheus Kafka adapter, you need to configure Prometheus to use the adapter as a remote write endpoint in its configuration (prometheus.yml). In my case, the adapter is running on the same machine as Prometheus server.
+In order for Prometheus to send metrics to the Prometheus Kafka adapter, you need to configure Prometheus to use the adapter as a remote write endpoint in its configuration (prometheus.yml). 
+
+If the adapter is running on the same machine as Prometheus server, update prometheus.yml with the below remote_write url:
 
 ```
 remote_write:
    - url: "http://localhost:8080/receive"
 ```
 
-Restart Prometheus service
+If the adapter is running outside the K8s cluster, update prometheus.yaml with the remote_write url having ip of machine where it is running:
+
+```
+remoteWrite:
+   - url: "http://10.102.3.152:8080/receive"
+```
+
+Restart Prometheus if it is set to run as a systemd service
 
 ```
 sudo systemctl restart prometheus
+```
+
+OR Upgrade the helm release using the new version of prometheus.yaml
+```
+helm upgrade prometheus prometheus-community/prometheus \
+    --namespace prometheus \
+    --set alertmanager.persistentVolume.storageClass="gp2" \
+    --set server.persistentVolume.storageClass="gp2" \
+    --set server.service.type=LoadBalancer
+    --values prometheus.yaml
 ```
 
 You should now see metrics flowing from Prometheus to Kafka
