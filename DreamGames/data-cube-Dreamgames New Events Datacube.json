@@ -1,0 +1,209 @@
+{
+  "name": "dreamgames_new_events71ed",
+  "title": "Dreamgames New Events Datacube",
+  "queryMode": "sql",
+  "source": {
+    "value": "dreamgames_new_events",
+    "connectionName": "druid",
+    "type": "direct"
+  },
+  "readAccess": {
+    "access": "specific",
+    "users": [
+      "4b542902-d047-495d-8a20-c8e9acd097fa",
+      "0d02089e-013a-45ae-af42-beb416bf8ff4",
+      "5ebffb34-006e-4bf3-8714-045671a06a5b",
+      "df884065-dc5e-42e2-916f-456e50ab768c",
+      "43a3dd7f-8d35-4ca2-9a1c-ea1f601e8e06"
+    ]
+  },
+  "modifyAccess": {
+    "access": "specific",
+    "users": [
+      "4b542902-d047-495d-8a20-c8e9acd097fa",
+      "0d02089e-013a-45ae-af42-beb416bf8ff4",
+      "5ebffb34-006e-4bf3-8714-045671a06a5b",
+      "df884065-dc5e-42e2-916f-456e50ab768c",
+      "43a3dd7f-8d35-4ca2-9a1c-ea1f601e8e06"
+    ]
+  },
+  "downloadAccess": {
+    "access": "specific",
+    "users": [
+      "4b542902-d047-495d-8a20-c8e9acd097fa",
+      "0d02089e-013a-45ae-af42-beb416bf8ff4",
+      "5ebffb34-006e-4bf3-8714-045671a06a5b",
+      "df884065-dc5e-42e2-916f-456e50ab768c",
+      "43a3dd7f-8d35-4ca2-9a1c-ea1f601e8e06"
+    ]
+  },
+  "attributes": [
+    {
+      "name": "__time",
+      "type": "TIME",
+      "nativeType": "__time",
+      "range": {
+        "start": "2024-04-23T18:12:00.000Z",
+        "end": "2024-04-24T14:22:00.000Z",
+        "bounds": "[]"
+      }
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "__time",
+      "title": "Time",
+      "formula": "t.\"__time\"",
+      "type": "TIME"
+    },
+    {
+      "name": "adName",
+      "title": "Ad Name",
+      "formula": "t.\"adName\"",
+      "type": "STRING"
+    },
+    {
+      "name": "adResponse",
+      "title": "Ad Response",
+      "formula": "t.\"adResponse\"",
+      "type": "STRING"
+    },
+    {
+      "name": "deviceOS",
+      "title": "Device OS",
+      "formula": "t.\"deviceOS\"",
+      "type": "STRING"
+    },
+    {
+      "name": "deviceType",
+      "title": "Device Type",
+      "formula": "t.\"deviceType\"",
+      "type": "STRING"
+    },
+    {
+      "name": "eventRevenue",
+      "title": "Event Revenue",
+      "formula": "t.\"eventRevenue\"",
+      "type": "NUMBER"
+    },
+    {
+      "name": "eventTimestamp",
+      "title": "Event Timestamp",
+      "formula": "t.\"eventTimestamp\"",
+      "type": "NUMBER"
+    },
+    {
+      "name": "eventType",
+      "title": "Event Type",
+      "formula": "t.\"eventType\"",
+      "type": "STRING"
+    },
+    {
+      "name": "gameInfo",
+      "title": "Game Info",
+      "formula": "t.\"gameInfo\"",
+      "type": "STRING"
+    },
+    {
+      "name": "gameLevel",
+      "title": "Game Level",
+      "formula": "t.\"gameLevel\"",
+      "type": "STRING"
+    },
+    {
+      "name": "IPaddress",
+      "title": "IPaddress",
+      "formula": "t.\"IPaddress\"",
+      "type": "STRING"
+    },
+    {
+      "name": "playerAgeDemographics",
+      "title": "Player Age Demographics",
+      "formula": "t.\"playerAgeDemographics\"",
+      "type": "STRING"
+    },
+    {
+      "name": "score",
+      "title": "Score",
+      "formula": "t.\"score\"",
+      "type": "NUMBER"
+    },
+    {
+      "name": "sessionId",
+      "title": "Session Id",
+      "formula": "t.\"sessionId\"",
+      "type": "STRING"
+    },
+    {
+      "name": "sessionStatus",
+      "title": "Session Status",
+      "formula": "t.\"sessionStatus\"",
+      "type": "STRING"
+    },
+    {
+      "name": "userId",
+      "title": "User Id",
+      "formula": "t.\"userId\"",
+      "type": "STRING"
+    },
+    {
+      "name": "LEFTtga-045",
+      "title": "GameName",
+      "formula": "LEFT(t.\"gameInfo\",3)",
+      "type": "STRING"
+    }
+  ],
+  "measures": [
+    {
+      "name": "count",
+      "title": "Number of Events",
+      "formula": "COUNT(*)",
+      "numberStyle": {
+        "type": "si",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "integer": true,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "sum_score",
+      "title": "Score",
+      "formula": "SUM(t.\"score\")"
+    },
+    {
+      "name": "sum_eventRevenue",
+      "title": "Event Revenue",
+      "formula": "SUM(t.\"eventRevenue\")"
+    },
+    {
+      "name": "sum_eventTimestamp",
+      "title": "Event Timestamp",
+      "formula": "SUM(t.\"eventTimestamp\")"
+    },
+    {
+      "name": "sum___count",
+      "title": "Count",
+      "formula": "SUM(t.\"__count\")"
+    },
+    {
+      "name": "APPROX_-89c",
+      "title": "userId aggregate",
+      "formula": "APPROX_COUNT_DISTINCT_DS_HLL((t.approx_userId))"
+    },
+    {
+      "name": "APPROX_-a67",
+      "title": "deviceOS aggregate",
+      "formula": "APPROX_COUNT_DISTINCT_DS_HLL((t.approx_deviceOS))"
+    },
+    {
+      "name": "APPROX_-170",
+      "title": "eventTyoe aggregate",
+      "formula": "APPROX_COUNT_DISTINCT_DS_HLL((t.approx_eventType))"
+    }
+  ],
+  "specialTimeDimension": "__time",
+  "enforceTimeFilter": true,
+  "defaultRefreshRate": "PT5M"
+}

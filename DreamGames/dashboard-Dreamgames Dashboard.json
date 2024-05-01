@@ -1,0 +1,450 @@
+{
+  "name": "5a50",
+  "title": "Dreamgames Dashboard",
+  "type": "dashboard2",
+  "readAccess": {
+    "access": "specific",
+    "users": [
+      "4b542902-d047-495d-8a20-c8e9acd097fa",
+      "5ebffb34-006e-4bf3-8714-045671a06a5b",
+      "0d02089e-013a-45ae-af42-beb416bf8ff4",
+      "df884065-dc5e-42e2-916f-456e50ab768c",
+      "43a3dd7f-8d35-4ca2-9a1c-ea1f601e8e06"
+    ]
+  },
+  "modifyAccess": {
+    "access": "single",
+    "users": [
+      "4b542902-d047-495d-8a20-c8e9acd097fa"
+    ]
+  },
+  "pages": [
+    {
+      "name": "page",
+      "label": "New page",
+      "tiles": [
+        {
+          "name": "t01",
+          "type": "visualization",
+          "title": "Daily Active Users",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 1
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {},
+            "axesSplits": [
+              [
+                {
+                  "dimension": "__time",
+                  "bucketAction": {
+                    "op": "timeBucket",
+                    "duration": "PT1M"
+                  },
+                  "sortType": "dimension",
+                  "direction": "ascending"
+                }
+              ],
+              [],
+              []
+            ],
+            "visualization": "line-chart",
+            "selectedMeasures": [
+              {
+                "measure": "APPROX_-89c",
+                "id": "487d2072-983f-4b59-8a58-c5e9c13d18aa"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        },
+        {
+          "name": "7c83",
+          "type": "visualization",
+          "title": "Distinct daily users playing a game",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 1,
+            "y": 5
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {
+              "clauses": [
+                {
+                  "dimension": "__time",
+                  "action": "overlap",
+                  "dynamic": {
+                    "op": "timeRange",
+                    "operand": {
+                      "op": "ref",
+                      "name": "m"
+                    },
+                    "duration": "P1D",
+                    "step": -1,
+                    "bounds": "[)"
+                  }
+                }
+              ]
+            },
+            "axesSplits": [
+              [
+                {
+                  "dimension": "__time",
+                  "sortType": "dimension",
+                  "direction": "ascending"
+                }
+              ],
+              [
+                {
+                  "dimension": "LEFTtga-045",
+                  "sortType": "measure",
+                  "direction": "descending"
+                }
+              ],
+              []
+            ],
+            "visualization": "line-chart",
+            "selectedMeasures": [
+              {
+                "measure": "APPROX_-89c",
+                "id": "8cf60d3c-6eec-4392-bb55-f4fde33bc350"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        },
+        {
+          "name": "t1c60",
+          "type": "visualization",
+          "title": "Weekly Active Users",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 8
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {
+              "clauses": [
+                {
+                  "dimension": "__time",
+                  "action": "overlap",
+                  "dynamic": {
+                    "op": "timeRange",
+                    "operand": {
+                      "op": "ref",
+                      "name": "m"
+                    },
+                    "duration": "P1D",
+                    "step": -7,
+                    "bounds": "[)"
+                  }
+                }
+              ]
+            },
+            "axesSplits": [
+              [
+                {
+                  "dimension": "__time",
+                  "bucketAction": {
+                    "op": "timeBucket",
+                    "duration": "PT1H"
+                  },
+                  "sortType": "dimension",
+                  "direction": "ascending"
+                }
+              ],
+              [],
+              []
+            ],
+            "visualization": "line-chart",
+            "selectedMeasures": [
+              {
+                "measure": "APPROX_-89c",
+                "id": "c3276b62-0bfd-4d15-8635-34f69b0b9f41"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        },
+        {
+          "name": "07a6",
+          "type": "visualization",
+          "title": "Distinct weekly users playing a game",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 8,
+            "y": 5
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {
+              "clauses": [
+                {
+                  "dimension": "__time",
+                  "action": "overlap",
+                  "dynamic": {
+                    "op": "timeRange",
+                    "operand": {
+                      "op": "ref",
+                      "name": "m"
+                    },
+                    "duration": "P1D",
+                    "step": -7,
+                    "bounds": "[)"
+                  }
+                }
+              ]
+            },
+            "axesSplits": [
+              [
+                {
+                  "dimension": "__time",
+                  "bucketAction": {
+                    "op": "timeBucket",
+                    "duration": "P1D"
+                  },
+                  "sortType": "dimension",
+                  "direction": "ascending"
+                }
+              ],
+              [
+                {
+                  "dimension": "LEFTtga-045",
+                  "sortType": "measure",
+                  "direction": "descending"
+                }
+              ],
+              []
+            ],
+            "visualization": "line-chart",
+            "selectedMeasures": [
+              {
+                "measure": "APPROX_-89c",
+                "id": "8cf60d3c-6eec-4392-bb55-f4fde33bc350"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        },
+        {
+          "name": "t0ee4",
+          "type": "visualization",
+          "title": "Device type -> Device OS -> Game played",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 15
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {
+              "clauses": [
+                {
+                  "dimension": "__time",
+                  "action": "overlap",
+                  "dynamic": {
+                    "op": "timeRange",
+                    "operand": {
+                      "op": "ref",
+                      "name": "m"
+                    },
+                    "duration": "P1D",
+                    "step": -7,
+                    "bounds": "[)"
+                  }
+                }
+              ]
+            },
+            "axesSplits": [
+              [
+                {
+                  "dimension": "deviceType",
+                  "sortType": "measure",
+                  "direction": "descending"
+                },
+                {
+                  "dimension": "deviceOS",
+                  "sortType": "measure",
+                  "direction": "descending"
+                },
+                {
+                  "dimension": "LEFTtga-045",
+                  "sortType": "measure",
+                  "direction": "descending"
+                }
+              ]
+            ],
+            "visualization": "sunburst",
+            "selectedMeasures": [
+              {
+                "measure": "count",
+                "id": "571f1371-ea67-47c5-a8c1-fc75fbac233e"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        },
+        {
+          "name": "t5e42",
+          "type": "visualization",
+          "title": "Game popularity over a week",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 1,
+            "y": 10
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {
+              "clauses": [
+                {
+                  "dimension": "__time",
+                  "action": "overlap",
+                  "dynamic": {
+                    "op": "timeRange",
+                    "operand": {
+                      "op": "ref",
+                      "name": "m"
+                    },
+                    "duration": "P1D",
+                    "step": -7,
+                    "bounds": "[)"
+                  }
+                },
+                {
+                  "dimension": "eventType",
+                  "action": "overlap",
+                  "values": {
+                    "setType": "STRING",
+                    "elements": [
+                      "start Game",
+                      "GameProgress"
+                    ]
+                  },
+                  "exclude": false,
+                  "mvFilterOnly": false
+                }
+              ]
+            },
+            "axesSplits": [
+              [
+                {
+                  "dimension": "__time",
+                  "sortType": "dimension",
+                  "direction": "ascending"
+                }
+              ],
+              [
+                {
+                  "dimension": "LEFTtga-045",
+                  "sortType": "measure",
+                  "direction": "descending"
+                }
+              ],
+              []
+            ],
+            "visualization": "line-chart",
+            "selectedMeasures": [
+              {
+                "measure": "APPROX_-89c",
+                "id": "72ffbd7f-028b-4e9e-94ac-314baf62961a"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        },
+        {
+          "name": "tb42c",
+          "type": "visualization",
+          "title": "Revenue generated by game over a week",
+          "canExpand": true,
+          "description": "",
+          "position": {
+            "width": 6,
+            "height": 4,
+            "x": 15,
+            "y": 5
+          },
+          "facetEssence": {
+            "dataCube": "dreamgames_new_events71ed",
+            "timezone": "Etc/UTC",
+            "filter": {
+              "clauses": [
+                {
+                  "dimension": "__time",
+                  "action": "overlap",
+                  "dynamic": {
+                    "op": "timeRange",
+                    "operand": {
+                      "op": "ref",
+                      "name": "m"
+                    },
+                    "duration": "P1D",
+                    "step": -7,
+                    "bounds": "[)"
+                  }
+                }
+              ]
+            },
+            "axesSplits": [
+              [
+                {
+                  "dimension": "__time",
+                  "sortType": "dimension",
+                  "direction": "ascending"
+                }
+              ],
+              [
+                {
+                  "dimension": "LEFTtga-045",
+                  "sortType": "measure",
+                  "direction": "descending"
+                }
+              ],
+              [
+                {
+                  "dimension": "playerAgeDemographics",
+                  "sortType": "measure",
+                  "direction": "descending"
+                }
+              ]
+            ],
+            "visualization": "line-chart",
+            "selectedMeasures": [
+              {
+                "measure": "sum_eventRevenue",
+                "id": "f221f898-4534-4dcf-a696-58e1e6c45306"
+              }
+            ],
+            "pinnedDimensions": []
+          }
+        }
+      ]
+    }
+  ]
+}
