@@ -5,7 +5,9 @@ To demo the Observability use case, the idea began with having some metrics in P
 
 So this README provides guidance on 
 
-[Part 1: Emit Druid metrics from Imply cluster to Prometheus](#part-1-emit-druid-metrics-from-imply-cluster-to-prometheus)
+[Part 1a: Emit Druid metrics from Imply cluster to Prometheus](#part-1a-emit-druid-metrics-from-imply-cluster-to-prometheus)
+
+[Part 1b: Emit K8s metrics from EKS/K8s cluster to Prometheus]
 
 [Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply](#part-2-sending-metrics-from-prometheus-to-kafka-and-analyse-them-in-imply)
 
@@ -96,7 +98,7 @@ sudo systemctl enable prometheus
 ![image-20240307-170308](https://github.com/implydata/use-case-demos/assets/91908414/678fecf8-9eb4-495f-a3f6-72bf78e4d6a1)
 
 
-## Part 1b: Emit K8s metrics from EKS cluster to Prometheus
+## Part 1b: Emit K8s metrics from EKS/K8s cluster to Prometheus
 
 ### Install Prometheus on the EKS cluster using Helm
 
