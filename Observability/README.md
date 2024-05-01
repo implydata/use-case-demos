@@ -7,7 +7,7 @@ So this README provides guidance on
 
 [Part 1a: Emit Druid metrics from Imply cluster to Prometheus](#part-1a-emit-druid-metrics-from-imply-cluster-to-prometheus)
 
-[Part 1b: Emit K8s metrics from EKS/K8s cluster to Prometheus]
+[Part 1b: Emit K8s metrics from EKS/K8s cluster to Prometheus](#part-1b-emit-k8s-metrics-from-eksk8s-cluster-to-prometheus)
 
 [Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply](#part-2-sending-metrics-from-prometheus-to-kafka-and-analyse-them-in-imply)
 
@@ -127,6 +127,7 @@ helm upgrade -i prometheus prometheus-community/prometheus \
     --values prometheus.yaml
 ```
 
+Since prometheus is deployed on the same EKS/K8s cluster, it should now start scraping K8s metrics from the nodes.
 
 
 ## Part 2: Sending metrics from Prometheus to Kafka and analyse them in Imply
