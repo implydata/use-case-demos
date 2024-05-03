@@ -1,0 +1,425 @@
+{
+  "name": "EKSClusterMetricsb6e9",
+  "title": "EKSCluster Metrics",
+  "queryMode": "sql",
+  "source": {
+    "value": "EKSClusterMetrics",
+    "connectionName": "druid",
+    "type": "direct"
+  },
+  "readAccess": {
+    "access": "all"
+  },
+  "modifyAccess": {
+    "access": "single",
+    "users": [
+      "43c827aa-eb36-44cb-9f5f-e393c5db8d6a"
+    ]
+  },
+  "downloadAccess": {
+    "access": "all"
+  },
+  "attributes": [
+    {
+      "name": "__time",
+      "type": "TIME",
+      "nativeType": "__time",
+      "range": {
+        "start": "2024-04-19T13:27:53.000Z",
+        "end": "2024-04-19T15:04:08.000Z",
+        "bounds": "[]"
+      }
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "__time",
+      "title": "Time",
+      "formula": "t.\"__time\"",
+      "type": "TIME"
+    },
+    {
+      "name": "Alpha_Eksctl_Io_Cluster_Name",
+      "title": "Alpha Eksctl Io Cluster Name",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.alpha_eksctl_io_cluster_name')",
+      "type": "STRING"
+    },
+    {
+      "name": "Alpha_Eksctl_Io_Instance_Id",
+      "title": "Alpha Eksctl Io Instance Id",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.alpha_eksctl_io_instance_id')",
+      "type": "STRING"
+    },
+    {
+      "name": "Alpha_Eksctl_Io_Nodegroup_Name",
+      "title": "Alpha Eksctl Io Nodegroup Name",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.alpha_eksctl_io_nodegroup_name')",
+      "type": "STRING"
+    },
+    {
+      "name": "Beta_Kubernetes_Io_Arch",
+      "title": "Beta Kubernetes Io Arch",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.beta_kubernetes_io_arch')",
+      "type": "STRING"
+    },
+    {
+      "name": "Beta_Kubernetes_Io_Instance_Type",
+      "title": "Beta Kubernetes Io Instance Type",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.beta_kubernetes_io_instance_type')",
+      "type": "STRING"
+    },
+    {
+      "name": "Beta_Kubernetes_Io_Os",
+      "title": "Beta Kubernetes Io Os",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.beta_kubernetes_io_os')",
+      "type": "STRING"
+    },
+    {
+      "name": "Container",
+      "title": "Container",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.container')",
+      "type": "STRING"
+    },
+    {
+      "name": "Cpu",
+      "title": "Cpu",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.cpu')",
+      "type": "STRING"
+    },
+    {
+      "name": "Device",
+      "title": "Device",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.device')",
+      "type": "STRING"
+    },
+    {
+      "name": "Failure_Domain_Beta_Kubernetes_Io_Region",
+      "title": "Failure Domain Beta Kubernetes Io Region",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.failure_domain_beta_kubernetes_io_region')",
+      "type": "STRING"
+    },
+    {
+      "name": "Failure_Domain_Beta_Kubernetes_Io_Zone",
+      "title": "Failure Domain Beta Kubernetes Io Zone",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.failure_domain_beta_kubernetes_io_zone')",
+      "type": "STRING"
+    },
+    {
+      "name": "Failure_Type",
+      "title": "Failure Type",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.failure_type')",
+      "type": "STRING"
+    },
+    {
+      "name": "Id",
+      "title": "Id",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.id')",
+      "type": "STRING"
+    },
+    {
+      "name": "Image",
+      "title": "Image",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.image')",
+      "type": "STRING"
+    },
+    {
+      "name": "Instance",
+      "title": "Instance",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.instance')",
+      "type": "STRING"
+    },
+    {
+      "name": "Interface",
+      "title": "Interface",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.interface')",
+      "type": "STRING"
+    },
+    {
+      "name": "Job",
+      "title": "Job",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.job')",
+      "type": "STRING"
+    },
+    {
+      "name": "K8s_Io_Cloud_Provider_Aws",
+      "title": "K8s Io Cloud Provider Aws",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.k8s_io_cloud_provider_aws')",
+      "type": "STRING"
+    },
+    {
+      "name": "Kubernetes_Io_Arch",
+      "title": "Kubernetes Io Arch",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.kubernetes_io_arch')",
+      "type": "STRING"
+    },
+    {
+      "name": "Kubernetes_Io_Hostname",
+      "title": "Kubernetes Io Hostname",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.kubernetes_io_hostname')",
+      "type": "STRING"
+    },
+    {
+      "name": "Kubernetes_Io_Os",
+      "title": "Kubernetes Io Os",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.kubernetes_io_os')",
+      "type": "STRING"
+    },
+    {
+      "name": "Major",
+      "title": "Major",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.major')",
+      "type": "STRING"
+    },
+    {
+      "name": "Minor",
+      "title": "Minor",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.minor')",
+      "type": "STRING"
+    },
+    {
+      "name": "Name",
+      "title": "Name",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.__name__')",
+      "type": "STRING"
+    },
+    {
+      "name": "Name-798e",
+      "title": "Name 798e",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.name')",
+      "type": "STRING"
+    },
+    {
+      "name": "Namespace",
+      "title": "Namespace",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.namespace')",
+      "type": "STRING"
+    },
+    {
+      "name": "Node_Kubernetes_Io_Instance_Type",
+      "title": "Node Kubernetes Io Instance Type",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.node_kubernetes_io_instance_type')",
+      "type": "STRING"
+    },
+    {
+      "name": "Node_Lifecycle",
+      "title": "Node Lifecycle",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.node_lifecycle')",
+      "type": "STRING"
+    },
+    {
+      "name": "Operation",
+      "title": "Operation",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.operation')",
+      "type": "STRING"
+    },
+    {
+      "name": "Pod",
+      "title": "Pod",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.pod')",
+      "type": "STRING"
+    },
+    {
+      "name": "Scope",
+      "title": "Scope",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.scope')",
+      "type": "STRING"
+    },
+    {
+      "name": "State",
+      "title": "State",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.state')",
+      "type": "STRING"
+    },
+    {
+      "name": "Topology_Ebs_Csi_Aws_Com_Zone",
+      "title": "Topology Ebs Csi Aws Com Zone",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.topology_ebs_csi_aws_com_zone')",
+      "type": "STRING"
+    },
+    {
+      "name": "Topology_Kubernetes_Io_Region",
+      "title": "Topology Kubernetes Io Region",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.topology_kubernetes_io_region')",
+      "type": "STRING"
+    },
+    {
+      "name": "Topology_Kubernetes_Io_Zone",
+      "title": "Topology Kubernetes Io Zone",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.topology_kubernetes_io_zone')",
+      "type": "STRING"
+    },
+    {
+      "name": "Ulimit",
+      "title": "Ulimit",
+      "group": "Labels",
+      "formula": "JSON_VALUE(\"t\".\"labels\",'$.ulimit')",
+      "type": "STRING"
+    },
+    {
+      "name": "name",
+      "title": "Name",
+      "formula": "t.\"name\"",
+      "type": "STRING"
+    },
+    {
+      "name": "value",
+      "title": "Value",
+      "formula": "t.\"value\"",
+      "type": "NUMBER"
+    }
+  ],
+  "measures": [
+    {
+      "name": "count",
+      "title": "Number of Events",
+      "formula": "COUNT(*)",
+      "numberStyle": {
+        "type": "si",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "integer": true,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "sum_value",
+      "title": "Value",
+      "formula": "SUM(t.\"value\")"
+    },
+    {
+      "name": "SUMtval-d04",
+      "title": "NetworkThroughput",
+      "formula": "(SUM(t.\"value\")/1024)",
+      "numberStyle": {
+        "type": "byte",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "SUMtval-7e2",
+      "title": "DiskSize",
+      "formula": "SUM(t.\"value\")",
+      "numberStyle": {
+        "type": "byte",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "SUMtval-1bf",
+      "title": "MaxThroughput",
+      "formula": "MAX(t.\"value\")",
+      "numberStyle": {
+        "type": "byte",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "MAXtval-97f",
+      "title": "OperationsValue",
+      "formula": "(SUM(t.\"value\")/1000000)",
+      "numberStyle": {
+        "type": "si",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "SUMtval-877",
+      "title": "CPUValue",
+      "formula": "(SUM(t.\"value\")/1000)",
+      "numberStyle": {
+        "type": "percent-raw",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "SUMtval-6f8",
+      "title": "cpu_utilization",
+      "formula": "(SUM(t.\"value\") FILTER (WHERE t.\"name\" = 'container_cpu_usage_seconds_total') / SUM(t.\"value\") FILTER (WHERE t.\"name\" = 'machine_cpu_cores')) /10000",
+      "numberStyle": {
+        "type": "percent-raw",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "SUMtval-f88",
+      "title": "memory_utilization",
+      "formula": "(SUM(t.\"value\") FILTER (WHERE t.\"name\" = 'container_memory_usage_bytes') / SUM(t.\"value\") FILTER (WHERE t.\"name\" = 'machine_memory_bytes'))",
+      "numberStyle": {
+        "type": "percent-raw",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    },
+    {
+      "name": "SUMtval-035",
+      "title": "disk_utilization",
+      "formula": "(SUM(t.\"value\") FILTER (WHERE t.\"name\" = 'container_fs_usage_bytes') / SUM(t.\"value\") FILTER (WHERE t.\"name\" = 'container_fs_limit_bytes')) * 100",
+      "numberStyle": {
+        "type": "percent-raw",
+        "leading": 1,
+        "minDecimals": 2,
+        "maxDecimals": 2,
+        "abbreviationSpace": true
+      }
+    }
+  ],
+  "specialTimeDimension": "__time",
+  "enforceTimeFilter": true,
+  "defaultRefreshRate": "PT5M"
+}
