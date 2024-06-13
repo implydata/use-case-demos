@@ -36,6 +36,13 @@ REVENUEPARAM = {
     False: { 'mu': 20.0, 'sigma': 4.0 },
     True:  { 'mu': 10.0, 'sigma': 2.5 }
 }
+OSPLATFORM = OrderedDict([
+    ('Linux',   0.03), 
+    ('Windows', 0.14),
+    ('macOS',   0.11),
+    ('iOS',     0.34),
+    ('Android', 0.38)
+])
 
 msgCount = 0
 
@@ -74,7 +81,7 @@ def emitUserDetail(p, t, k):
         'deviceDetail': {
             'deviceId': fake.uuid4(),
             'deviceType': fake.random_element(elements=('mobile', 'desktop')),
-            'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
+            'deviceOS': fake.random_element(OSPLATFORM),
             'deviceManufacturer': fake.random_element(elements=('Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Dell', 'HP')),
             'gameVersion': fake.numerify('%.#')
         },
