@@ -43,13 +43,22 @@ OSPLATFORM = OrderedDict([
     ('iOS',     0.34),
     ('Android', 0.38)
 ])
-PLAYERAGE = OrderedDict([
-    ('18-25', 0.45), 
-    ('26-35', 0.26),
-    ('36-50', 0.14),
-    ('51-60', 0.10),
-    ( '61+',  0.05)
-])
+PLAYERAGE = {
+    False: OrderedDict([
+      ('18-25', 0.56), 
+      ('26-35', 0.20),
+      ('36-50', 0.10),
+      ('51-60', 0.10),
+      ( '61+',  0.04)
+    ]),
+    True: OrderedDict([
+      ('18-25', 0.45), 
+      ('26-35', 0.26),
+      ('36-50', 0.14),
+      ('51-60', 0.10),
+      ( '61+',  0.05)
+    ])
+}
 
 msgCount = 0
 
@@ -185,7 +194,7 @@ def main():
         tNow = int(time.time())
         
         hourOfDayGM = time.gmtime(tNow)[3]
-        anomalyOn = hourOfDayGM >= 10 and hourOfDayGM < 12 # 2 hours in the morning
+        anomalyOn = hourOfDayGM < 17 or hourOfDayGM > 21 # anomaly means less revenue
         
         eventId = str(fake.random_int(min=0, max=9))
         userId = fake.numerify('######')
@@ -207,7 +216,7 @@ def main():
             'IPaddress' : fake.ipv4(),
             'adName' : adId,
             'eventRevenue': round(random.gauss(REVENUEPARAM[anomalyOn]['mu'], REVENUEPARAM[anomalyOn]['sigma']), 2),
-            'playerAgeDemographics': fake.random_element(elements=PLAYERAGE),
+            'playerAgeDemographics': fake.random_element(elements=PLAYERAGE[anomalyOn]),
             'adResponse' : fake.random_element(elements=('', 'view', 'click')),
         }
         emitEvent(producer, eventTopic, ev)
