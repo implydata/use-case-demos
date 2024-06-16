@@ -36,6 +36,12 @@ REVENUEPARAM = {
     False: { 'mu': 20.0, 'sigma': 4.0 },
     True:  { 'mu': 10.0, 'sigma': 2.5 }
 }
+ADRESPONSE = OrderedDict([
+    ('',             0.85),
+    ('Impression',   0.07),
+    ('Click',        0.05),
+    ('Registration', 0.03)
+])
 OSPLATFORM = OrderedDict([
     ('Linux',   0.03), 
     ('Windows', 0.14),
@@ -205,19 +211,19 @@ def main():
         ev = {
             'eventType': EVENTTYPE[int(eventId)],
             'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
-            'gameInfo' : gameId + ' ' + fake.numerify('%.#'),
+            'gameInfo' : gameId,
             'userId' : userId,
             'sessionId' : fake.numerify('######'),
             'sessionStatus' : fake.random_element(elements=SESSIONSTATUS[anomalyOn]),
             'score' : fake.random_int(min=0, max=100000),
             'gameLevel' : str(fake.random_int(min=1, max=100)),
             'deviceType': fake.random_element(elements=('mobile', 'desktop')),
-            'deviceOS': fake.random_element(elements=('Linux', 'Windows', 'macOS', 'iOS', 'Android')),
+            'deviceOS': fake.random_element(elements=OSPLATFORM),
             'IPaddress' : fake.ipv4(),
             'adName' : adId,
             'eventRevenue': round(random.gauss(REVENUEPARAM[anomalyOn]['mu'], REVENUEPARAM[anomalyOn]['sigma']), 2),
             'playerAgeDemographics': fake.random_element(elements=PLAYERAGE[anomalyOn]),
-            'adResponse' : fake.random_element(elements=('', 'view', 'click')),
+            'adResponse' : fake.random_element(elements=ADRESPONSE),
         }
         emitEvent(producer, eventTopic, ev)
 
