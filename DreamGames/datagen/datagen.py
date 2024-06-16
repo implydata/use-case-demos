@@ -208,6 +208,7 @@ def main():
         gameId = fake.random_element(elements=GAMEID)
         adId = fake.numerify('A-####')
 
+        place = fake.location_on_land()
         ev = {
             'eventType': EVENTTYPE[int(eventId)],
             'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
@@ -224,6 +225,11 @@ def main():
             'eventRevenue': round(random.gauss(REVENUEPARAM[anomalyOn]['mu'], REVENUEPARAM[anomalyOn]['sigma']), 2),
             'playerAgeDemographics': fake.random_element(elements=PLAYERAGE[anomalyOn]),
             'adResponse' : fake.random_element(elements=ADRESPONSE),
+            'latitude' : place[0],
+            'longitude' : place[1],
+            'place_name' : place[2],
+            'country_code' : place[3],
+            'timezone' : place[4]
         }
         emitEvent(producer, eventTopic, ev)
 
