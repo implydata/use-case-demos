@@ -144,7 +144,7 @@ def main():
     if maxSleep is None:
         maxSleep = 0.04
 
-    logging.debug(f'Generating {config['General']['maxUsers']} users')
+    logging.debug(f"Generating {config['General']['maxUsers']} users")
     users = [{
         'deviceOS': fake.random_element(elements=OSPLATFORM),
         'deviceType': fake.random_element(elements=('mobile', 'desktop')),
