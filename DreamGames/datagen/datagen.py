@@ -49,22 +49,13 @@ OSPLATFORM = OrderedDict([
     ('iOS',     0.34),
     ('Android', 0.38)
 ])
-PLAYERAGE = {
-    False: OrderedDict([
-      ('18-25', 0.56), 
-      ('26-35', 0.20),
-      ('36-50', 0.10),
-      ('51-60', 0.10),
-      ( '61+',  0.04)
-    ]),
-    True: OrderedDict([
-      ('18-25', 0.45), 
-      ('26-35', 0.26),
-      ('36-50', 0.14),
-      ('51-60', 0.10),
-      ( '61+',  0.05)
-    ])
-}
+PLAYERAGE = OrderedDict([
+    ('18-25', 0.56), 
+    ('26-35', 0.20),
+    ('36-50', 0.10),
+    ('51-60', 0.10),
+    ( '61+',  0.04)
+])
 
 msgCount = 0
 
@@ -85,48 +76,6 @@ def emit(producer, topic, key, emitRecord):
 
 def emitEvent(p, t, emitRecord):
     emit(p, t, emitRecord["sessionId"], emitRecord)
-
-def emitEventDetail(p, t, k):
-    evd = {
-        'eventId': k,
-        'eventType': EVENTTYPE[int(k)]
-    }
-    emit(p, t, k, evd)
-
-def emitUserDetail(p, t, k):
-    playerdetail = k.split('-')
-    ud = {
-        'userId': playerdetail[0],
-        'playerId': k,
-        'userName': fake.user_name(),
-        'payingCustomer': fake.random_element(elements=('Y', 'N')),
-        'deviceDetail': {
-            'deviceId': fake.uuid4(),
-            'deviceType': fake.random_element(elements=('mobile', 'desktop')),
-            'deviceOS': fake.random_element(OSPLATFORM),
-            'deviceManufacturer': fake.random_element(elements=('Apple', 'Samsung', 'Huawei', 'Xiaomi', 'Dell', 'HP')),
-            'gameVersion': fake.numerify('%.#')
-        },
-        'playerDemographics': {
-            'ageRange': fake.random_element(elements=('18-25', '26-35', '36-50', '51-60', '61+')), 
-            'pronouns': fake.random_element(elements=('he/him', 'she/her', 'they/them')),
-            'genreOfInterest': fake.random_element(elements=('action', 'strategy', 'casual'))
-        },
-        'playerAdPreferences': fake.random_sample(ADPREFS)
-    }
-    emit(p, t, k, ud)
-
-def emitGameDetail(p, t, k):
-    gd = {
-        'gameId': k
-    }
-    emit(p, t, k, gd)
-
-def emitAdvertiserDetail(p, t, k):
-    ad = {
-        'advertiserId': k
-    }
-    emit(p, t, k, ad)
 
 # Read configuration
         
@@ -195,6 +144,15 @@ def main():
     if maxSleep is None:
         maxSleep = 0.04
 
+    logging.debug(f'Generating {config['General']['maxUsers']} users')
+    users = [{
+        'deviceOS': fake.random_element(elements=OSPLATFORM),
+        'deviceType': fake.random_element(elements=('mobile', 'desktop')),
+        'IPaddress' : fake.ipv4(),
+        'playerAgeDemographics' : fake.random_element(elements=PLAYERAGE),
+        'place' : fake.location_on_land()
+    } for userId in range(config['General']['maxUsers'])]
+
     while True:
 
         tNow = int(time.time())
@@ -203,8 +161,9 @@ def main():
         anomalyOn = hourOfDayGM < 17 or hourOfDayGM > 21 # anomaly means less revenue
         
         eventId = str(fake.random_int(min=0, max=9))
-        userId = fake.numerify('######')
-        playerId = userId + '-' + fake.numerify('###') # convention: playerId is userId-suffix
+        sessionId = fake.random_int(min=0, max=config['General']['maxUsers']-1)
+        userId = int(sessionId) // 10
+        userRec = users[int(userId)]
         gameId = fake.random_element(elements=GAMEID)
         adId = fake.numerify('A-####')
 
@@ -213,23 +172,23 @@ def main():
             'eventType': EVENTTYPE[int(eventId)],
             'eventTimestamp' : tNow - fake.random_int(min=1, max=100),
             'gameInfo' : gameId,
-            'userId' : userId,
-            'sessionId' : fake.numerify('######'),
+            'userId' : str(userId),
+            'sessionId' : str(sessionId),
             'sessionStatus' : fake.random_element(elements=SESSIONSTATUS[anomalyOn]),
             'score' : fake.random_int(min=0, max=100000),
             'gameLevel' : str(fake.random_int(min=1, max=100)),
-            'deviceType': fake.random_element(elements=('mobile', 'desktop')),
-            'deviceOS': fake.random_element(elements=OSPLATFORM),
-            'IPaddress' : fake.ipv4(),
+            'deviceType' : userRec['deviceType'],
+            'deviceOS' : userRec['deviceOS'],
+            'IPaddress' : userRec['IPaddress'],
             'adName' : adId,
             'eventRevenue': round(random.gauss(REVENUEPARAM[anomalyOn]['mu'], REVENUEPARAM[anomalyOn]['sigma']), 2),
-            'playerAgeDemographics': fake.random_element(elements=PLAYERAGE[anomalyOn]),
+            'playerAgeDemographics': userRec['playerAgeDemographics'],
             'adResponse' : fake.random_element(elements=ADRESPONSE),
-            'latitude' : place[0],
-            'longitude' : place[1],
-            'place_name' : place[2],
-            'country_code' : place[3],
-            'timezone' : place[4]
+            'latitude' : userRec['place'][0],
+            'longitude' : userRec['place'][1],
+            'place_name' : userRec['place'][2],
+            'country_code' : userRec['place'][3],
+            'timezone' : userRec['place'][4]
         }
         emitEvent(producer, eventTopic, ev)
 
