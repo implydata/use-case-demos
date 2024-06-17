@@ -5,6 +5,7 @@ IncludeOptional:
 General:
     minSleep: 0.02
     maxSleep: 0.08
+    maxUsers: 100000
     eventTopic: "dg-events-2"
 Kafka:
     bootstrap.servers: "localhost:9092"
